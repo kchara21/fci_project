@@ -11,7 +11,7 @@ export class ValueService {
   constructor(private http:HttpClient) {}
 
   getReportById(poolId:number, parameter:string, start:string,end:string):Observable<any>{
-    return this.http.get<any>(`value/getByDate/${poolId}/${parameter}/${start}/${end}`)
+    return this.http.get<any>(`/value/getByDate/${poolId}/${parameter}/${start}/${end}`)
     .pipe(catchError(this.handlerError));
   }
 

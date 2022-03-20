@@ -19,34 +19,34 @@ export class TemplateService {
 
   getAll():Observable<any>{
     return this.http
-    .get<any>(`template`)
+    .get<any>(`/template`)
     .pipe(catchError(this.handlerError));
   }
 
   getById(templateId:number):Observable<any>{
-    return this.http.get<any>(`template/${templateId}`)
+    return this.http.get<any>(`/template/${templateId}`)
   }
 
   getByName(templateName:string):Observable<any>{
-    return this.http.get<any>(`template/byName/${templateName}`)
+    return this.http.get<any>(`/template/byName/${templateName}`)
   }
 
   getTemplateByPool(poolId:number):Observable<any>{
-    return this.http.get<any>(`template/byPool/${poolId}`)
+    return this.http.get<any>(`/template/byPool/${poolId}`)
   }
 
   new(template:any):Observable<any>{
-    return this.http.post<any>(`template`,template)
+    return this.http.post<any>(`/template`,template)
     .pipe(catchError(this.handlerError));
   }
 
   update(templateId:number, template:any):Observable<any>{
-    return this.http.patch<any>(`template/${templateId}`,template)
+    return this.http.patch<any>(`/template/${templateId}`,template)
     .pipe(catchError(this.handlerError));
   }
 
   delete(templateId:number):Observable<{}>{
-    return this.http.delete<any>(`template/${templateId}`)
+    return this.http.delete<any>(`/template/${templateId}`)
     .pipe(catchError(this.handlerError));
   }
 
