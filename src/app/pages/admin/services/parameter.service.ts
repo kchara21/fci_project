@@ -14,17 +14,17 @@ export class ParameterService {
 
   getAll():Observable<any[]>{
     return this.http
-    .get<any>(`${environment.BASE_URL}/parameter`)
+    .get<any>(`parameter`)
     .pipe(catchError(this.handlerError));
   }
 
   getByPool(poolName:string):Observable<any>{
-    return this.http.get<any>(`${environment.BASE_URL}/parameter/byPool/${poolName}`)
+    return this.http.get<any>(`parameter/byPool/${poolName}`)
     
   }
 
   getByParam(paramName:string):Observable<any>{
-    return this.http.get<any>(`${environment.BASE_URL}/parameter/${paramName}`)
+    return this.http.get<any>(`parameter/${paramName}`)
     .pipe(catchError(this.handlerError));
   }
 
@@ -34,23 +34,23 @@ export class ParameterService {
 
 
   new(parameter:any):Observable<any>{
-    return this.http.post(`${environment.BASE_URL}/parameter`,parameter)
+    return this.http.post(`parameter`,parameter)
     .pipe(catchError(this.handlerError));
   }
 
   
   newCensus(poolId:number,responsableId:number):Observable<any>{
-    return this.http.get(`${environment.BASE_URL}/parameter/census/${poolId}/${responsableId}`)
+    return this.http.get(`parameter/census/${poolId}/${responsableId}`)
     .pipe(catchError(this.handlerError));
   }
 
   update(parameterId:number, parameter:any):Observable<any>{
-    return this.http.patch<any>(`${environment.BASE_URL}/parameter/${parameterId}`,parameter)
+    return this.http.patch<any>(`parameter/${parameterId}`,parameter)
     .pipe(catchError(this.handlerError));
   }
   
   delete(parameterId:number):Observable<{}>{
-    return this.http.delete<any>(`${environment.BASE_URL}/parameter/${parameterId}`)
+    return this.http.delete<any>(`parameter/${parameterId}`)
     .pipe(catchError(this.handlerError));
   }
 

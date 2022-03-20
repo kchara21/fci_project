@@ -34,7 +34,7 @@ export class AuthService {
 
 
   login(authData:User):Observable<UserResponse | void>{
-    return this.http.post<UserResponse>(`${environment.BASE_URL}/auth/login`,authData)
+    return this.http.post<UserResponse>(`auth/login`,authData)
     .pipe(
       map((user:UserResponse)=>{
     

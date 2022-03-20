@@ -12,26 +12,26 @@ export class PoolService {
 
   getAll():Observable<any[]>{
     return this.http
-    .get<any>(`${environment.BASE_URL}/pool`)
+    .get<any>(`pool`)
     .pipe(catchError(this.handlerError))
   }
 
   getByNameandPool(paramName:string,poolCode:string,):Observable<any>{
-    return this.http.get<any>(`${environment.BASE_URL}/pool/${paramName}/${poolCode}`)
+    return this.http.get<any>(`pool/${paramName}/${poolCode}`)
   }
 
   new(pool:any):Observable<any>{
-    return this.http.post(`${environment.BASE_URL}/pool`,pool)
+    return this.http.post(`pool`,pool)
     .pipe(catchError(this.handlerError));
   }
 
   update(poolId:number, pool:any):Observable<any>{
-    return this.http.patch<any>(`${environment.BASE_URL}/pool/${poolId}`,pool)
+    return this.http.patch<any>(`pool/${poolId}`,pool)
     .pipe(catchError(this.handlerError));
   }
 
   delete(poolId:number):Observable<{}>{
-    return this.http.delete<any>(`${environment.BASE_URL}/pool/${poolId}`)
+    return this.http.delete<any>(`pool/${poolId}`)
     .pipe(catchError(this.handlerError));
   }
   

@@ -14,26 +14,26 @@ export class UserService {
 
   getAll():Observable<User[]>{
     return this.http
-    .get<User[]>(`${environment.BASE_URL}/user`)
+    .get<User[]>(`user`)
     .pipe(catchError(this.handlerError));
   }
 
   getById(userId:number):Observable<any>{
-    return this.http.get<any>(`${environment.BASE_URL}/user/${userId}`)
+    return this.http.get<any>(`user/${userId}`)
   }
 
   new(user:User):Observable<User>{
-    return this.http.post<any>(`${environment.BASE_URL}/user`,user)
+    return this.http.post<any>(`user`,user)
     
   }
 
   update(userId:number, user:User):Observable<User>{
-    return this.http.patch<any>(`${environment.BASE_URL}/user/${userId}`,user)
+    return this.http.patch<any>(`user/${userId}`,user)
     
   }
 
   delete(userId:number):Observable<{}>{
-    return this.http.delete<User>(`${environment.BASE_URL}/user/${userId}`)
+    return this.http.delete<User>(`user/${userId}`)
     .pipe(catchError(this.handlerError));
   }
 

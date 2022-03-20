@@ -22,7 +22,7 @@ export class ApiService {
 
   getAll():Observable<any>{
     return this.http
-    .get<any>(`${environment.BASE_URL}/api`)
+    .get<any>(`api`)
     .pipe(catchError(this.handlerError));
   }
 
