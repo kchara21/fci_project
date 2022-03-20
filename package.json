@@ -3,12 +3,12 @@
     "version": "0.0.0",
     "scripts": {
         "ng": "ng",
-        "start": "ng serve --prod",
+        "start": "concurrently \"npm run server\" \"ng serve --prod\"",
         "build": "ng build ",
         "watch": "ng build --watch --configuration development",
         "test": "ng test",
-        "server": "cd back && npm run dev",
-        "dev": "concurrently \"npm run server\" \"npm run start\""
+        "server": "cd back && npm run dev"
+
     },
     "engines": {
         "node": "16.x"
