@@ -1,0 +1,53 @@
+<h2 mat-dialog-title>
+    {{data?.title}}</h2>
+
+<mat-dialog-content>
+    <div class="modal-form">
+        <form [formGroup]="paramForm.baseForm">
+
+            <mat-form-field class="full-width-input">
+                <input formControlName="codigo" matInput placeholder="codigo" required>
+                <mat-error *ngIf="checkField('codigo')">
+                    {{paramForm.errorMessage}}
+                </mat-error>
+            </mat-form-field>
+
+
+
+            <mat-form-field appearance="fill" class="full-width-input">
+                <mat-label>nombre</mat-label>
+                <mat-select formControlName="nombre" required>
+                    <mat-option *ngFor="let nombre of nombreParametrosApi" [value]="nombre">{{nombre}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+
+
+            <mat-form-field appearance="fill" class="full-width-input">
+                <mat-label>Plantillas</mat-label>
+                <mat-select formControlName="plantilla" required>
+                    <mat-option *ngFor="let plantilla of plantillasDisponibles" [value]="plantilla.id">{{plantilla.codigo}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+
+            <mat-form-field appearance="fill" class="full-width-input">
+                <mat-label>Piscinas</mat-label>
+                <mat-select formControlName="piscina" required>
+                    <mat-option *ngFor="let piscina of piscinasDisponibles" [value]="piscina.id">{{piscina.codigo}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+
+
+
+        </form>
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancelar </button>
+    <button mat-raised-button [mat-dialog-close]="true" color="primary" (click)="onSaveTemplate()" ckdFocusInitial>
+        Guardar
+    </button>
+</mat-dialog-actions>

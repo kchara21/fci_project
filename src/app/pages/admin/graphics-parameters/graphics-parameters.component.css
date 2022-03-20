@@ -1,0 +1,14 @@
+.table {
+    width: 30%;
+    margin-left: 150px;
+    margin-top: 1rem;
+}
+
+.table-button-row button {
+    margin: 12px;
+}
+
+.buttons {
+    margin: 0 auto;
+    margin-top: 2rem;
+}

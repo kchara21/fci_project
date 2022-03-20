@@ -1,0 +1,151 @@
+<form [formGroup]="filtroParam" (ngSubmit)="filtrosParam()" class="demo-button">
+
+    <div fxLayout="column" fxFlex="100">
+
+        <div fxLayout="row">
+            <mat-form-field appearance="fill">
+                <mat-label>Enter a date range</mat-label>
+                <mat-date-range-input [rangePicker]="picker">
+                    <input matStartDate formControlName="start" placeholder="Start date">
+                    <input matEndDate formControlName="end" placeholder="End date">
+                </mat-date-range-input>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+
+                <mat-error *ngIf="filtroParam.controls?.['start']?.hasError('matStartDateInvalid')">Invalid start date</mat-error>
+                <mat-error *ngIf="filtroParam.controls?.['end']?.hasError('matEndDateInvalid')">Invalid end date</mat-error>
+            </mat-form-field>
+
+
+
+            <mat-form-field appearance="fill">
+                <mat-label>Piscinas</mat-label>
+                <mat-select formControlName="piscina" required>
+                    <mat-option *ngFor="let piscina of piscinasDisponibles" [value]="piscina.id">{{piscina.codigo}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+
+                <mat-label>Parametros</mat-label>
+                <mat-select formControlName="selectedParam" name="param" [(ngModel)]="letParamGrafic">
+                    <mat-option *ngFor="let plantilla of parametrosApi[0];let i=index" [value]="plantilla">{{plantilla}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+
+            <button [disabled]="filtroParam.invalid" type="submit" mat-raised-button color="primary" ckdFocusInitial class="btn-new">
+            Buscar
+           </button>
+
+            <button [disabled]="dataSource.data.length===0 || letParamGrafic === 'TODOS'" (click)="onOpenModal(filtroParam)" mat-raised-button color="primary" class="btn-new">Ver Grafico</button>
+
+
+
+            <button class="btn-new" [disabled]="dataSource.data.length===0" mat-raised-button color="primary" (click)="exporter.exportTable('xls')">Exportar <mat-icon>trending_down</mat-icon>
+             </button>
+        </div>
+
+
+
+    </div>
+
+
+
+
+
+
+
+</form>
+
+
+
+
+
+
+<div class="tableScroll ">
+    <table mat-table matSort [dataSource]="dataSource" class="mat-elevation-z8" matTableExporter #exporter="matTableExporter" fileName="hola">
+
+        <!-- Id Column -->
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by id">
+                No.
+            </th>
+            <td mat-cell *matCellDef="let element; let i=index"> {{i+1}} </td>
+        </ng-container>
+
+
+        <!-- Parametro Column -->
+        <ng-container matColumnDef="parametro">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by parametro">
+                Parametro
+            </th>
+            <td mat-cell *matCellDef="let element"> {{element.parametro.nombre}} </td>
+        </ng-container>
+
+        <!-- Valor Column -->
+        <ng-container matColumnDef="createdAt">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by createdAt">
+                CreatedAt
+            </th>
+            <td mat-cell *matCellDef="let element"> {{moment(element.createdAt).format("yyyy-MM-DD HH:mm:ss a")}} </td>
+        </ng-container>
+
+
+
+        <!-- element.createdAt.toString().split('T')[0] + " " + (element.createdAt.toString().split('T')[1]).split('.')[0] -->
+
+
+        <!-- Valor Column -->
+        <ng-container matColumnDef="valor">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by valor">
+                Valor
+            </th>
+            <td mat-cell *matCellDef="let element"> {{element.valor}} </td>
+        </ng-container>
+
+
+
+        <!-- Valor Column -->
+        <ng-container matColumnDef="estado">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by estado">
+                Estado
+            </th>
+            <td mat-cell *matCellDef="let element"> {{element.estado}} </td>
+        </ng-container>
+
+
+
+        <!-- Responsable Column -->
+        <ng-container matColumnDef="responsable">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by responsable">
+                Responsable
+            </th>
+            <td mat-cell *matCellDef="let element"> {{element.responsable}} </td>
+        </ng-container>
+
+
+
+
+        <!-- Valor_minimo Column -->
+        <ng-container matColumnDef="valor_minimo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by valor_minimo">
+                Valor Minimo
+            </th>
+            <td mat-cell *matCellDef="let element"> {{element.parametro.plantilla.valor_minimo}} </td>
+        </ng-container>
+
+        <!-- valor_maximo Column -->
+        <ng-container matColumnDef="valor_maximo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by valor_maximo">
+                Valor Maximo
+            </th>
+            <td mat-cell *matCellDef="let element"> {{element.parametro.plantilla.valor_maximo}} </td>
+        </ng-container>
+
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>

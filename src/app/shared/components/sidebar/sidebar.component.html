@@ -1,0 +1,45 @@
+<mat-nav-list>
+
+
+    <a mat-list-item routerLink="/admin">
+        <mat-icon>insert_chart_outlined</mat-icon>
+        <span class="nav-link">General</span>
+    </a>
+
+    <a mat-list-item routerLink="/admin/reports">
+        <mat-icon>assignment</mat-icon>
+        <span class="nav-link">Reportes</span>
+    </a>
+
+
+    <a mat-list-item routerLink="/admin/users">
+        <mat-icon>people</mat-icon>
+        <span class="nav-link">Usuarios</span>
+    </a>
+
+    <a mat-list-item routerLink="/admin/templates">
+        <mat-icon>perm_data_setting</mat-icon>
+        <span class="nav-link">Plantillas</span>
+    </a>
+
+
+
+    <a mat-list-item routerLink="/admin/parameters">
+        <mat-icon>settings_input_svideo</mat-icon>
+        <span class="nav-link">Parametros</span>
+    </a>
+
+    <a mat-list-item routerLink="/admin/pools">
+        <mat-icon>pool</mat-icon>
+        <span class="nav-link">Piscinas</span>
+    </a>
+
+
+
+    <a mat-list-item (click)="onExit()">
+        <mat-icon>exit_to_app</mat-icon>
+        <span class="nav-link">Salir</span>
+    </a>
+
+
+</mat-nav-list>

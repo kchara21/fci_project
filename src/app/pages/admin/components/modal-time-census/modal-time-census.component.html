@@ -1,0 +1,47 @@
+<mat-dialog-content>
+    <div class="modal-form">
+        <form [formGroup]="censusDate" class="exampleForm">
+
+            <div>
+                <p>TIEMPO ENCENDIDO: {{censusDate.value.horasEncendido*60}}min. con {{censusDate.value.minutosEncendido*60}}seg.</p>
+                <mat-form-field class="full-width-input" appearance="fill" required>
+                    <mat-label>Horas</mat-label>
+                    <input formControlName="horasEncendido" type="number" min="0" matInput>
+
+                </mat-form-field>
+
+                <mat-form-field class="full-width-input" appearance="fill" required>
+                    <mat-label>Minutos</mat-label>
+                    <input formControlName="minutosEncendido" min="0" type="number" matInput>
+                </mat-form-field>
+            </div>
+
+            <div>
+                <p>FRECUENCIA: Cada {{censusDate.value.horasFrecuencia*60}}min. con {{censusDate.value.minutosFrecuencia*60}}seg. </p>
+                <mat-form-field class="full-width-input" appearance="fill" required>
+                    <mat-label>Horas</mat-label>
+                    <input formControlName="horasFrecuencia" min="0" type="number" matInput>
+                </mat-form-field>
+
+
+                <mat-form-field class="full-width-input" appearance="fill" required>
+
+                    <mat-label>Minutos</mat-label>
+                    <input formControlName="minutosFrecuencia" min="0.05" type="number" matInput>
+                </mat-form-field>
+            </div>
+
+
+        </form>
+    </div>
+</mat-dialog-content>
+
+
+
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancelar </button>
+    <button [disabled]="censusDate.invalid" mat-raised-button [mat-dialog-close]="true" color="primary" (click)="onSave()" ckdFocusInitial>
+        Censar
+    </button>
+
+</mat-dialog-actions>

@@ -1,0 +1,10 @@
+.tittle {
+    text-align: center;
+    color: rgb(120, 45, 155);
+    padding-top: 20px;
+}
+
+.letter {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 2rem;
+}
