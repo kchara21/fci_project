@@ -8,7 +8,7 @@
         "watch": "ng build --watch --configuration development",
         "test": "ng test",
         "server": "cd back && npm run dev",
-        "dev": "concurrently \"npm run server\" \"npm run start\" \"ng serve\""
+        "dev": "concurrently \"npm run server\"  \"ng serve\""
     },
     "engines": {
         "node": "16.x"
