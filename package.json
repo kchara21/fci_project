@@ -10,6 +10,9 @@
         "server": "cd back && npm run dev",
         "dev": "concurrently \"npm run server\" \"npm run start\""
     },
+    "engines": {
+        "node": "16.x"
+    },
     "private": true,
     "dependencies": {
         "@angular/animations": "~13.2.0",
