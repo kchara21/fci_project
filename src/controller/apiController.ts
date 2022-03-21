@@ -1,10 +1,7 @@
-import { validate } from 'class-validator';
+
 import { Request, Response } from 'express';
-import { request } from 'http';
-import { Parametro } from '../entity/Parametro';
-import { getRepository } from 'typeorm';
 import fetch from 'node-fetch';
-import e = require('express');
+
 
 
 export class ApiController{
