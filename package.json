@@ -2,7 +2,6 @@
     "name": "login_roles",
     "version": "0.0.1",
     "description": "Awesome project developed with TypeORM.",
-    "type": "module",
     "devDependencies": {
         "@types/bcryptjs": "^2.4.2",
         "@types/cors": "^2.8.12",
@@ -30,7 +29,7 @@
         "typeorm": "0.2.37"
     },
     "scripts": {
-        "start": "node build/index.js",
+        "start": "set debug=* && ts-node-dev --respawn --transpile-only ./src/index.ts",
         "dev": "set debug=* && ts-node-dev --respawn --transpile-only ./src/index.ts",
         "tsc": "tsc"
 
