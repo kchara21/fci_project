@@ -16,6 +16,9 @@ createConnection().then(async () => {
     app.use(express.json());
     app.use(express.static('public'))
 
+    //Manejar posibles rutas
+    
+
     //Routes
     app.use('/',routes);
 
