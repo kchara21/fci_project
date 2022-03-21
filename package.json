@@ -15,7 +15,7 @@
     "engines": {
         "node": "16.x"
     },
-    "type": "module",
+
 
     "dependencies": {
         "@angular/cli": "^13.3.0",
