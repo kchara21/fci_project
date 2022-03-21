@@ -6,7 +6,6 @@
          "es6"
       ],
       "target": "es6",
-      "module": "commonjs",
       "moduleResolution": "node",
       "outDir": "./build",
       "rootDir":"./src",
