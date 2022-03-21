@@ -34,7 +34,6 @@
     },
     "scripts": {
         "start": "node build/index.js",
-        "build": "tsc",
         "dev": "set debug=* && ts-node-dev --respawn --transpile-only ./src/index.ts",
         "tsc": "tsc"
     }
