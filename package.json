@@ -12,6 +12,9 @@
         "ts-node-dev": "^1.1.8",
         "typescript": "^3.3.3333"
     },
+    "engines": {
+        "node": "16.x"
+    },
     "dependencies": {
         "@angular/cli": "^13.3.0",
         "bcryptjs": "^2.4.3",
