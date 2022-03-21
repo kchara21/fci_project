@@ -4,7 +4,7 @@ import * as express from "express";
 import * as cors from 'cors';
 import routes from './routes';
 
-const PORT = process.env.PORT || 3000;
+let PORT = process.env.PORT || 3000;
 
 createConnection().then(async () => {
 
