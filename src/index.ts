@@ -22,7 +22,7 @@ createConnection().then(async () => {
     app.use(function (req, res, next) {
       res.setHeader(
         'Content-Security-Policy',
-        "default-src 'self'; font-src 'self'; img-src 'self'; script-src 'self'; style-src 'self'; frame-src 'self'; unsafe-inline"
+        "default-src 'self'; font-src 'self'; img-src 'self'; script-src 'self'; style-src 'self'; frame-src 'self'; script-src-attr 'self'"
       );
       next();
     });
