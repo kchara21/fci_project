@@ -19,7 +19,7 @@ class Server {
     //Configurara la propiedad "app"
     this.app.set('port', process.env.PORT || 3000);
     //Middlewares
-    this.app.use(cors()); // Obtener permiso para acceder a recursos seleccionados desde un servidor, en un origen distinto (dominio) al que pertenece.
+    this.app.use(cors({credentials: true}));
     this.app.use(helmet());
 
     this.app.use(express.json()); // Para poder recibir datos JSON y entenderlos.
