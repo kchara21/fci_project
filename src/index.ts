@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 import express from 'express';
 import cors from 'cors';
+import path from 'path'
 import routes from './routes';
 
 
@@ -25,6 +26,9 @@ class Server {
     this.app.use(express.json()); // Para poder recibir datos JSON y entenderlos.
     this.app.use(express.urlencoded({ extended: false })); // Em caso de querer enviar desde un form. HTML
     this.app.use(express.static('public'));
+    this.app.get('*',(req,res)=>{
+      res.sendFile(path.resolve(__dirname,'dist/index.js'))
+    })
   }
 
   routes(): void {
