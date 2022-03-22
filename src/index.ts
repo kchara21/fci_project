@@ -22,7 +22,6 @@ createConnection().then(async () => {
   app.use('/', routes);
   app.use(express.static('public'));
 
- 
 
 // start express server
 app.listen(PORT, () => console.log(`Server running on PORT ${PORT}`));
