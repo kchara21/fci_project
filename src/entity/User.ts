@@ -1,67 +1,65 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  Unique,
-  CreateDateColumn,
-  UpdateDateColumn,
-  ManyToMany,
-  JoinTable,
-} from 'typeorm';
-import { MinLength, IsNotEmpty, IsEmail, IsOptional } from 'class-validator';
-import * as bcrypt from 'bcryptjs';
-import { Piscina } from './Piscina';
+import {Entity, PrimaryGeneratedColumn, Column, Unique,CreateDateColumn,UpdateDateColumn, ManyToMany, JoinTable} from "typeorm";
+import { MinLength, IsNotEmpty,IsEmail, IsOptional } from "class-validator";
+import * as bcrypt from 'bcryptjs'
+import { Piscina } from "./Piscina";
+
 
 @Entity()
-@Unique(['email']) //Ese es un que SERA UNICO
+@Unique(['email']) //Ese es un que SERA UNICO 
 export class Usuario {
-  @PrimaryGeneratedColumn()
-  id: number;
 
-  @ManyToMany(() => Piscina, (piscina) => piscina.usuarios)
-  @JoinTable({
-    name: 'user_pool',
-    joinColumn: {
-      name: 'user_id',
-    },
-    inverseJoinColumn: {
-      name: 'pool_id',
-    },
-  })
-  piscinas: Piscina[];
+    @PrimaryGeneratedColumn()
+    id:number;
 
-  @Column()
-  @MinLength(6)
-  nombre: string;
+    
+    @ManyToMany(() => Piscina, (piscina)=>piscina.usuarios)
+    @JoinTable({
+        name:'user_pool',
+        joinColumn:{
+            name:'user_id',
+        },
+        inverseJoinColumn:{
+            name:'pool_id'
+        }
+    })
+    piscinas: Piscina[];
 
-  @Column()
-  @MinLength(6)
-  @IsEmail()
-  email: string;
+    @Column()
+    @MinLength(6)
+    nombre:string;
 
-  @Column()
-  @MinLength(6)
-  @IsNotEmpty()
-  clave: string;
+    @Column()
+    @MinLength(6)
+    @IsEmail()
+    email:string;
 
-  @Column()
-  @IsNotEmpty()
-  rol: string;
+    
+    @Column()
+    @MinLength(6)
+    @IsNotEmpty()
+    clave:string;
 
-  @Column()
-  @CreateDateColumn()
-  createdAt: Date;
+    @Column()
+    @IsNotEmpty()
+    rol:string;
 
-  @Column()
-  @UpdateDateColumn()
-  updateAt: Date;
+ 
+    
+    @Column()
+    @CreateDateColumn()
+    createdAt:Date;
 
-  hashPassword(): void {
-    const salt = bcrypt.genSaltSync(10);
-    this.clave = bcrypt.hashSync(this.clave, salt);
-  }
+    @Column()
+    @UpdateDateColumn()
+    updateAt:Date;
 
-  checkPassword(clave: string): boolean {
-    return bcrypt.compareSync(clave, this.clave);
-  }
+    hashPassword():void{
+        const salt = bcrypt.genSaltSync(10);
+        this.clave = bcrypt.hashSync(this.clave,salt)
+    }
+
+    checkPassword(clave:string):boolean{
+        return bcrypt.compareSync(clave,this.clave);
+    }
+
 }

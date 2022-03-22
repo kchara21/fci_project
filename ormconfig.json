@@ -1,10 +1,10 @@
 {
     "type": "mysql",
-    "host": "localhost",
+    "host": "acw2033ndw0at1t7.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
     "port": 3306,
-    "username": "root",
-    "password": "Dogblack2021",
-    "database": "login_node",
+    "username": "ckl6isr9g01fs40n",
+    "password": "xne9o82k1n9pugve",
+    "database": "wmgpksofxvo3j8hw",
     "synchronize": true,
     "logging": false,
     "entities": [

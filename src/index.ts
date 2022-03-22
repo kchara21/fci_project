@@ -1,9 +1,8 @@
-import 'reflect-metadata';
-import express from 'express';
+import "reflect-metadata";
 import {createConnection} from "typeorm";
-import cors from 'cors';
+import * as express from "express";
+import * as cors from 'cors';
 import routes from './routes';
-
 
 const PORT = process.env.PORT || 3000;
 
