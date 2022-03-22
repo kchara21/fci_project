@@ -1,26 +1,44 @@
-import "reflect-metadata";
-import {createConnection} from "typeorm";
-import * as express from "express";
-import * as cors from 'cors';
+import 'reflect-metadata';
+import express from 'express';
+import cors from 'cors';
 import routes from './routes';
+import helmet from 'helmet';
 
-const PORT = process.env.PORT || 3000;
+import { Application } from 'express';
 
-createConnection().then(async () => {
+class Server {
+  public app: Application;
 
-    // create express app
-    const app = express();
+  constructor() {
+    this.app = express();
+    this.config();
+    this.routes();
+  }
 
-    //Middelwares
-    app.use(cors());
-    app.use(express.json());
-    app.use(express.static('public'));
+  config(): void {
+    //Configurara la propiedad "app"
+    this.app.set('port', process.env.PORT || 3000);
+    //Middlewares
+    this.app.use(cors()); // Obtener permiso para acceder a recursos seleccionados desde un servidor, en un origen distinto (dominio) al que pertenece.
+    this.app.use(helmet());
 
-    //Routes
-    app.use('/',routes);
+    this.app.use(express.json()); // Para poder recibir datos JSON y entenderlos.
+    this.app.use(express.urlencoded({ extended: false })); // Em caso de querer enviar desde un form. HTML
+    this.app.use(express.static('public'));
+  }
 
-    // start express server
-    app.listen(PORT,()=> console.log(`Server running on PORT ${PORT}`));
+  routes(): void {
+    // Definir de app las rutas de mi servidor
+    this.app.use('/', routes);
+  }
 
+  start(): void {
+    // Para que el servidor empiece a escuchar
+    this.app.listen(this.app.get('port'), () => {
+      console.log(`Server on port`, this.app.get('port'));
+    });
+  }
+}
 
-}).catch(error => console.log(error));
+const server = new Server();
+server.start();
