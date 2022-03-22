@@ -1,12 +1,12 @@
 <!DOCTYPE html><html lang="en"><head>
     <meta charset="utf-8">
-    <meta http-equiv="Content-Security-Policy" content="default-src  'unsafe-inline';
-  frame-src 'self';
-  script-src 'self';
-  style-src 'self' 'unsafe-inline';
-  font-src 'self' 'unsafe-inline';
-  img-src 'self' data:;
-  connect-src 'self'">
+    <meta http-equiv="Content-Security-Policy" content="default-src  'unsafe-inline' 'strict-dynamic';
+  frame-src 'self' 'strict-dynamic';
+  script-src 'self' 'strict-dynamic';
+  style-src 'self' 'unsafe-inline' 'strict-dynamic';
+  font-src 'self' 'unsafe-inline' 'strict-dynamic';
+  img-src 'self' 'strict-dynamic' data: ;
+  connect-src 'self' 'strict-dynamic'">
     <title>Front</title>
     <base href="/">
     <meta name="viewport" content="width=device-width, initial-scale=1">
