@@ -1,10 +1,8 @@
-import 'reflect-metadata';
+import "reflect-metadata";
+import {createConnection} from "typeorm";
 import express from 'express';
 import cors from 'cors';
-import path from 'path'
 import routes from './routes';
-import {createConnection} from "typeorm";
-
 
 const PORT = process.env.PORT || 3000;
 
@@ -20,9 +18,6 @@ createConnection().then(async () => {
 
     //Routes
     app.use('/',routes);
-
-  
-
 
     // start express server
     app.listen(PORT,()=> console.log(`Server running on PORT ${PORT}`));
