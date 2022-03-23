@@ -17,6 +17,7 @@ createConnection().then(async () => {
     app.use(helmet())
     app.use(express.json());
     app.use(express.static('public'));
+    app.use(express.urlencoded({extended:false})); // Em caso de querer enviar desde un form. HTML
     //Routes
     app.use('/',routes);
     
