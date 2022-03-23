@@ -8,6 +8,6 @@
     "synchronize": true,
     "logging": false,
     "entities": [
-        "build/entity/**/*.js"
+        "dist/entity/**/*.js"
     ]
 }
