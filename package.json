@@ -33,7 +33,7 @@
         "typeorm": "^0.2.45"
     },
     "scripts": {
-        "start": "tsc && node --unhandled-rejections=strict ./dist/index.js",
+        "start": "nodemon dist/index.js",
         "dev": "set debug=* && ts-node-dev --respawn --transpile-only ./src/index.ts",
         "tsc": "tsc"
     }
