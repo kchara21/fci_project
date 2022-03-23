@@ -3,7 +3,6 @@ import express from 'express';
 import cors from 'cors';
 import routes from './routes';
 import helmet from 'helmet';
-import path from 'path'
 import {createConnection} from "typeorm";
 const PORT = process.env.PORT || 3000;
 
@@ -19,9 +18,7 @@ createConnection().then(async () => {
     app.use(express.static('public'));
     //Routes
     app.use('/',routes);
-    app.get('*', (req,res)=>{
-      res.sendFile(path.resolve(__dirname,'public/index.html'));
-    })
+    
 
     // start express server
     app.listen(PORT,()=> console.log(`Server running on PORT ${PORT}`));
