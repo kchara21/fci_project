@@ -24,20 +24,7 @@ class Server {
 
         //Middlewares
         this.app.use(cors({ credentials: true })); // Obtener permiso para acceder a recursos seleccionados desde un servidor, en un origen distinto (dominio) al que pertenece.
-        this.app.use(helmet(
-            {
-                contentSecurityPolicy:
-                {
-                    directives: {
-                        ...helmet.contentSecurityPolicy.getDefaultDirectives()
-                        , "script-src-elem": ["'self'", "'https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js'"]
-                    }
-                }
-            }
-        ));
-
-
-
+    
         this.app.use(express.json()); // Para poder recibir datos JSON y entenderlos.
         this.app.use(express.urlencoded({ extended: false })); // Em caso de querer enviar desde un form. HTML
 
