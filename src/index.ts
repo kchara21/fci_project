@@ -23,12 +23,7 @@ class Server{
        
         //Middlewares
         this.app.use(cors({credentials: true})); // Obtener permiso para acceder a recursos seleccionados desde un servidor, en un origen distinto (dominio) al que pertenece.
-        this.app.use(helmet({contentSecurityPolicy:{
-            directives: {
-                defaultSrc: ["'self' 'unsafe-inline' 'unsafe-eval'"],
-        
-                }
-        }}));
+        this.app.use(helmet({contentSecurityPolicy:false}));
 
 
         
