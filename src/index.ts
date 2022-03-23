@@ -24,7 +24,14 @@ class Server {
 
         //Middlewares
         this.app.use(cors({ credentials: true })); // Obtener permiso para acceder a recursos seleccionados desde un servidor, en un origen distinto (dominio) al que pertenece.
-    
+        this.app.use(helmet(
+            {
+                contentSecurityPolicy:false,
+            }
+        ));
+
+
+
         this.app.use(express.json()); // Para poder recibir datos JSON y entenderlos.
         this.app.use(express.urlencoded({ extended: false })); // Em caso de querer enviar desde un form. HTML
 
