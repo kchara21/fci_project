@@ -57,4 +57,3 @@ Parametro = __decorate([
     (0, typeorm_1.Entity)()
 ], Parametro);
 exports.Parametro = Parametro;
-//# sourceMappingURL=Parametro.js.map

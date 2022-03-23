@@ -97,7 +97,6 @@ __decorate([
 ], Usuario.prototype, "updateAt", void 0);
 Usuario = __decorate([
     (0, typeorm_1.Entity)(),
-    (0, typeorm_1.Unique)(['email'])
+    (0, typeorm_1.Unique)(['email']) //Ese es un que SERA UNICO
 ], Usuario);
 exports.Usuario = Usuario;
-//# sourceMappingURL=User.js.map

@@ -42,7 +42,7 @@ const checkJwt = (req, res, next) => {
     const { userId, email } = jwtPayload;
     const newToken = jwt.sign({ userId, email }, config_1.default.jwtSecret, { expiresIn: '2h' });
     res.setHeader('token', newToken);
+    //Call next
     next();
 };
 exports.checkJwt = checkJwt;
-//# sourceMappingURL=jwt.js.map

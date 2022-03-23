@@ -43,4 +43,3 @@ Valor = __decorate([
     (0, typeorm_1.Entity)()
 ], Valor);
 exports.Valor = Valor;
-//# sourceMappingURL=Valor.js.map

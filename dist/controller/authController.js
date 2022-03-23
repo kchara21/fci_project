@@ -22,6 +22,15 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -35,7 +44,7 @@ const class_validator_1 = require("class-validator");
 class AuthController {
 }
 _a = AuthController;
-AuthController.login = async (req, res) => {
+AuthController.login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, clave } = req.body;
     if (!(email && clave)) {
         res.status(400).json({ message: 'Username and Password are required!' });
@@ -43,18 +52,19 @@ AuthController.login = async (req, res) => {
     const userRepository = (0, typeorm_1.getRepository)(User_1.Usuario);
     let user;
     try {
-        user = await userRepository.findOneOrFail({ where: { email } });
+        user = yield userRepository.findOneOrFail({ where: { email } });
     }
     catch (e) {
         return res.status(400).json({ message: 'Username or password incorrect!' });
     }
+    //Check password
     if (!user.checkPassword(clave)) {
         return res.status(400).json({ message: 'Usuario o clave incorrecta' });
     }
     const token = jwt.sign({ userId: user.id, email: user.email }, config_1.default.jwtSecret, { expiresIn: '2h' });
     res.json({ message: 'OK', token, userId: user.id, email: user.email, rol: user.rol });
-};
-AuthController.changePassword = async (req, res) => {
+});
+AuthController.changePassword = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { userId } = res.locals.jwtPayload;
     const { oldPassword, newPassword } = req.body;
     if (!(oldPassword && newPassword)) {
@@ -63,7 +73,7 @@ AuthController.changePassword = async (req, res) => {
     const userRepository = (0, typeorm_1.getRepository)(User_1.Usuario);
     let user;
     try {
-        user = await userRepository.findOneOrFail(userId);
+        user = yield userRepository.findOneOrFail(userId);
     }
     catch (e) {
         res.status(400).json({ message: 'Somenthing goes wrong!' });
@@ -73,13 +83,13 @@ AuthController.changePassword = async (req, res) => {
     }
     user.clave = newPassword;
     const validationOps = { validationError: { target: false, value: false } };
-    const errors = await (0, class_validator_1.validate)(user, validationOps);
+    const errors = yield (0, class_validator_1.validate)(user, validationOps);
     if (errors.length > 0) {
         return res.status(400).json(errors);
     }
+    //Hash password
     user.hashPassword();
     userRepository.save(user);
     res.json({ message: 'Password change' });
-};
+});
 exports.default = AuthController;
-//# sourceMappingURL=authController.js.map
