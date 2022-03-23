@@ -4,9 +4,10 @@ import cors from 'cors';
 import routes from './routes';
 import helmet from 'helmet';
 import {createConnection} from "typeorm";
-const PORT = process.env.PORT || 3000;
+
 
 createConnection().then(async () => {
+  const PORT = process.env.PORT || 3000;
 
     // create express app
     const app = express();
