@@ -8,6 +8,11 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const routes_1 = __importDefault(require("./routes"));
 const helmet_1 = __importDefault(require("helmet"));
+const typeorm_1 = require("typeorm");
+const morgan_1 = __importDefault(require("morgan"));
+(0, typeorm_1.createConnection)().then(async (connection) => {
+    console.log('DB Connected');
+}).catch(err => console.log(err));
 class Server {
     constructor() {
         this.app = (0, express_1.default)();
@@ -16,14 +21,15 @@ class Server {
     }
     config() {
         this.app.set('port', process.env.PORT || 3000);
-        this.app.use((0, cors_1.default)());
+        this.app.use((0, morgan_1.default)('dev'));
+        this.app.use((0, cors_1.default)({ credentials: true }));
         this.app.use((0, helmet_1.default)());
         this.app.use(express_1.default.json());
         this.app.use(express_1.default.urlencoded({ extended: false }));
-        this.app.use(express_1.default.static('public'));
     }
     routes() {
         this.app.use('/', routes_1.default);
+        this.app.use(express_1.default.static('public'));
     }
     start() {
         this.app.listen(this.app.get('port'), () => {
