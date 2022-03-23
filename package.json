@@ -1,6 +1,7 @@
 {
-    "name": "login_roles",
+    "name": "project_fci",
     "version": "0.0.1",
+    "main": "index.js",
     "description": "Awesome project developed with TypeORM.",
     "devDependencies": {
         "@types/bcryptjs": "^2.4.2",
@@ -36,5 +37,6 @@
         "start": "nodemon dist/index.js",
         "dev": "set debug=* && ts-node-dev --respawn --transpile-only ./src/index.ts",
         "tsc": "tsc"
-    }
+    },
+    "license": "ISC"
 }
