@@ -31,7 +31,7 @@ class Server{
         this.app.use(function (req, res, next) {
             res.setHeader(
               'Content-Security-Policy-Report-Only',
-              "default-src 'self' 'unsafe-inline'; script-src-elem 'self' https://kit.fontawesome.com/4b9ba14b0f.js https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js; img-src 'self' https://1.bp.blogspot.com/-gxsOcYWghHA/Xp_izTh4sFI/AAAAAAAAU8s/y637Fwg99qAuzW9na_NT_uApny8Vce95gCEwYBhgL/s1600/header-footer-gradient-bg.png "
+              "default-src 'self' 'unsafe-inline' 'strict-dynamic'; script-src-elem 'self' 'strict-dynamic' https://kit.fontawesome.com/4b9ba14b0f.js https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js; img-src 'self' 'strict-dynamic' https://1.bp.blogspot.com/-gxsOcYWghHA/Xp_izTh4sFI/AAAAAAAAU8s/y637Fwg99qAuzW9na_NT_uApny8Vce95gCEwYBhgL/s1600/header-footer-gradient-bg.png "
             );
             next();
           });
