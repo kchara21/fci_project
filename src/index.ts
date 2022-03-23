@@ -4,7 +4,6 @@ import cors from 'cors';
 import routes from './routes';
 import helmet from 'helmet';
 import {createConnection} from "typeorm";
-import morgan from 'morgan';
 
 createConnection().then(async connection=>{
     console.log('DB Connected');
@@ -21,7 +20,7 @@ class Server{
 
     config(): void{ //Configurara la propiedad "app"
         this.app.set('port', process.env.PORT || 3000);
-        this.app.use(morgan('dev'));
+       
         //Middlewares
         this.app.use(cors({credentials: true})); // Obtener permiso para acceder a recursos seleccionados desde un servidor, en un origen distinto (dominio) al que pertenece.
         this.app.use(helmet());
