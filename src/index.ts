@@ -27,6 +27,14 @@ class Server{
         
         this.app.use(express.json()); // Para poder recibir datos JSON y entenderlos.
         this.app.use(express.urlencoded({extended:false})); // Em caso de querer enviar desde un form. HTML
+
+        this.app.use(function (req, res, next) {
+            res.setHeader(
+              'Content-Security-Policy-Report-Only',
+              "default-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self'; script-src 'self'; style-src 'self'; frame-src 'self'"
+            );
+            next();
+          });
     }
 
 
