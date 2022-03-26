@@ -78,7 +78,7 @@ export class ValueController {
 
     valParPool.length > 0
       ? res.json({ valParPool })
-      : res.json({ message: 'No se encontraron valores' });
+      : res.status(404).json({ message: 'No se encontraron valores' });
   };
 }
 
