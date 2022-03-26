@@ -16,7 +16,6 @@ class Server {
         this.app = express();
         this.config();
         this.routes();
-        console.log('hola');
     }
 
     config(): void { //Configurara la propiedad "app"
