@@ -17,7 +17,6 @@ class Server {
         this.app = (0, express_1.default)();
         this.config();
         this.routes();
-        console.log('hola');
     }
     config() {
         this.app.set('port', process.env.PORT || 3000);

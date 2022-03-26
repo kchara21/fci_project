@@ -12,17 +12,12 @@ const api_1 = __importDefault(require("./api"));
 const value_1 = __importDefault(require("./value"));
 const parameter_1 = __importDefault(require("./parameter"));
 const routes = (0, express_1.Router)();
-//RUTAS AUTENTICACION-LOGIN
 routes.use('/auth', auth_1.default);
 routes.use('/user', user_1.default);
-//RUTAS PARÁMETROS
 routes.use('/template', template_1.default);
-//RUTAS PISCINA
 routes.use('/pool', pool_1.default);
-//RUTA API
 routes.use('/api', api_1.default);
-//RUTA PARAMETROS
 routes.use('/parameter', parameter_1.default);
-//RUTA VALORES 
 routes.use('/value', value_1.default);
 exports.default = routes;
+//# sourceMappingURL=index.js.map
