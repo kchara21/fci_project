@@ -10,7 +10,7 @@ class AuthController{
         const {email,clave} = req.body;
 
         if(!(email && clave)){
-            res.status(400).json({message:'Username and Password are required!'});
+            res.status(400).json({message:'Usuario y clave son requeridos!'});
         }
         const userRepository = getRepository(Usuario);
         let user:Usuario;
@@ -18,7 +18,7 @@ class AuthController{
         try{
             user = await userRepository.findOneOrFail({where:{email}})
         }catch(e){
-            return res.status(400).json({message:'Username or password incorrect!'})
+            return res.status(400).json({message:'Usuario o clave incorrectos!'})
         }
         //Check password
         if(!user.checkPassword(clave)){
