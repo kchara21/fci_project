@@ -8,5 +8,6 @@
     "synchronize": true,
     "entities": [
         "dist/entity/**/*.js"
-    ]
+    ],
+    "timezone": "Z"
 }
