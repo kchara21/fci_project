@@ -55,3 +55,4 @@ Plantilla = __decorate([
     (0, typeorm_1.Unique)(['codigo'])
 ], Plantilla);
 exports.Plantilla = Plantilla;
+//# sourceMappingURL=Plantilla.js.map
