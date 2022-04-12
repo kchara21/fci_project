@@ -61,7 +61,7 @@ ValueController.reportByPool = async (req, res) => {
     }
     valParPool.length > 0
         ? res.json({ valParPool })
-        : res.json({ message: 'No se encontraron valores' });
+        : res.status(404).json({ message: 'No se encontraron valores' });
 };
 exports.default = ValueController;
 //# sourceMappingURL=valueController.js.map
