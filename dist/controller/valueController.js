@@ -22,6 +22,7 @@ ValueController.getByDate = async (req, res) => {
             relations: ['parametro'],
             where: { createdAt: BetweenDates(start, end) },
         });
+        console.log('valuesParam->', valuesParam);
     }
     catch (e) {
         res.status(404).json({ message: 'Something goes wrong!' });
