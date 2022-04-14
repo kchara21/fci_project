@@ -6,7 +6,8 @@
     "password": "xne9o82k1n9pugve",
     "database": "wmgpksofxvo3j8hw",
     "synchronize": true,
-    "timezone": "GMT-5",
+    "loggin": false,
+    "timezone": "UTC",
     "entities": [
         "dist/entity/**/*.js"
     ]
