@@ -9,7 +9,7 @@
     "entities": [
         "dist/entity/**/*.js"
     ],
-    "timezone": "Z"
+    "timezone": "utc"
 
 
 }
