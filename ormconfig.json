@@ -6,10 +6,10 @@
     "password": "xne9o82k1n9pugve",
     "database": "wmgpksofxvo3j8hw",
     "synchronize": true,
+    "timezone": "UTC+0",
     "entities": [
         "dist/entity/**/*.js"
-    ],
-    "timezone": "utc"
+    ]
 
 
 }
