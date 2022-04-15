@@ -23,7 +23,7 @@ export class Valor {
 
 
     @Column()
-    @CreateDateColumn({ type: 'timestamp'})
+    @CreateDateColumn({ type: 'timestamp with time zone'})
     createdAt; 
 
    
