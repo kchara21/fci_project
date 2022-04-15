@@ -36,7 +36,6 @@ __decorate([
 ], Valor.prototype, "responsable", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
-    (0, typeorm_1.CreateDateColumn)(),
     __metadata("design:type", Date)
 ], Valor.prototype, "createdAt", void 0);
 Valor = __decorate([

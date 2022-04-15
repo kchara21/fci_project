@@ -23,7 +23,6 @@ export class Valor {
 
 
     @Column()
-    @CreateDateColumn()
     createdAt:Date; 
 
    

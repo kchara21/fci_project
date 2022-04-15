@@ -4,8 +4,8 @@ import { Between, getRepository, CreateDateColumn, getManager } from 'typeorm';
 import { Parametro } from '../entity/Parametro';
 import { Valor } from '../entity/Valor';
 import fetch from 'node-fetch';
-import { format } from 'date-fns';
-import * as moment from 'moment';
+
+import moment from 'moment';
 import { Usuario } from '../entity/User';
 
 
@@ -65,6 +65,7 @@ export class ParamController {
                 for (let i = 0; i <= nombreApi.length; i++) {
                     if (parametro.nombre === nombreApi[i]) {
                         const value = new Valor();
+                        value.createdAt = moment().subtract(5, 'hours').toDate();
                         value.valor = valorApi[i];
                         value.responsable = responsable;
                         if (valorApi[i] >= parametro.plantilla.valor_minimo && valorApi[i] <= parametro.plantilla.valor_maximo) {

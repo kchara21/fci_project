@@ -10,6 +10,7 @@ const typeorm_1 = require("typeorm");
 const Parametro_1 = require("../entity/Parametro");
 const Valor_1 = require("../entity/Valor");
 const node_fetch_1 = __importDefault(require("node-fetch"));
+const moment_1 = __importDefault(require("moment"));
 const User_1 = require("../entity/User");
 class ParamController {
 }
@@ -54,6 +55,7 @@ ParamController.censusParameter = async (req, res) => {
             for (let i = 0; i <= nombreApi.length; i++) {
                 if (parametro.nombre === nombreApi[i]) {
                     const value = new Valor_1.Valor();
+                    value.createdAt = (0, moment_1.default)().subtract(5, 'hours').toDate();
                     value.valor = valorApi[i];
                     value.responsable = responsable;
                     if (valorApi[i] >= parametro.plantilla.valor_minimo && valorApi[i] <= parametro.plantilla.valor_maximo) {
