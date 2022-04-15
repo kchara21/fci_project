@@ -7,6 +7,7 @@
     "database": "wmgpksofxvo3j8hw",
     "synchronize": true,
     "loggin": false,
+    "timezone": "UTC -5",
     "entities": [
         "dist/entity/**/*.js"
     ]

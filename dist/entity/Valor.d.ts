@@ -5,5 +5,5 @@ export declare class Valor {
     valor: number;
     estado: string;
     responsable: string;
-    createdAt: Date;
+    createdAt: any;
 }
