@@ -23,7 +23,7 @@ export class Valor {
 
 
     @Column()
-    @CreateDateColumn({type:'datetime'})
+    @CreateDateColumn()
     createdAt:Date; 
 
    
