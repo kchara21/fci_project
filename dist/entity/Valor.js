@@ -36,7 +36,7 @@ __decorate([
 ], Valor.prototype, "responsable", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
-    (0, typeorm_1.CreateDateColumn)({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' }),
+    (0, typeorm_1.CreateDateColumn)({ type: 'timestamp' }),
     __metadata("design:type", Object)
 ], Valor.prototype, "createdAt", void 0);
 Valor = __decorate([
