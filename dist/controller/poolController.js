@@ -29,10 +29,10 @@ PoolController.getAll = async (req, res) => {
         if (piscinasMapped.length > 0) {
             return res.json(piscinasMapped);
         }
-        res.status(404).json({ message: 'Not result' });
+        res.status(404).json({ message: 'No hay resultado' });
     }
     catch (e) {
-        res.status(404).json({ message: 'Something goes wrong!' });
+        res.status(404).json({ message: 'Algo salió mal!' });
     }
 };
 PoolController.getById = async (req, res) => {
@@ -51,10 +51,10 @@ PoolController.getById = async (req, res) => {
         if (piscinaMapped) {
             return res.json(piscinaMapped);
         }
-        res.status(404).json({ message: 'Not result' });
+        res.status(404).json({ message: 'No hay resultados' });
     }
     catch (e) {
-        res.status(404).json({ message: 'Something goes wrong!' });
+        res.status(404).json({ message: 'Algo salió mal!' });
     }
 };
 PoolController.newPool = async (req, res) => {
@@ -73,24 +73,23 @@ PoolController.newPool = async (req, res) => {
         await poolRepository.save(pool);
     }
     catch (e) {
-        return res.status(404).json({ message: 'Pool already exist' });
+        return res.status(404).json({ message: '¡Piscina existente!' });
     }
     res.json('Piscina Creada!');
 };
 PoolController.editPool = async (req, res) => {
     let pool;
     const { id } = req.params;
-    const { codigo, componente, camaronera, responsable } = req.body;
+    const { codigo, camaronera, responsable } = req.body;
     const poolRepository = (0, typeorm_1.getRepository)(Piscina_1.Piscina);
     try {
         pool = await poolRepository.findOneOrFail(id);
         pool.codigo = codigo;
-        pool.componente = componente;
         pool.camaronera = camaronera;
         pool.responsable = responsable;
     }
     catch (e) {
-        return res.status(404).json({ message: 'Parameter not found' });
+        return res.status(404).json({ message: 'Parametro no funciona' });
     }
     const validationOpts = { validationError: { target: false, value: false } };
     const errors = await (0, class_validator_1.validate)(pool, validationOpts);
@@ -113,7 +112,7 @@ PoolController.deletePool = async (req, res) => {
         pool = await poolRepository.findOneOrFail(id);
     }
     catch (e) {
-        res.status(404).json({ message: 'Pool not found' });
+        res.status(404).json({ message: 'Piscina no funciona' });
     }
     poolRepository.delete(id);
     res.status(201).json({ message: '¡Piscina Eliminada!' });

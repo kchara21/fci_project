@@ -10,15 +10,15 @@ class AuthController{
         const {email,clave} = req.body;
 
         if(!(email && clave)){
-            res.status(400).json({message:'Usuario y clave son requeridos!'});
+            res.status(400).json({message:'Usuario y Clave requeridos!'});
         }
-        const userRepository = getRepository(Usuario);
+        const userRepository:any = getRepository(Usuario);
         let user:Usuario;
 
         try{
             user = await userRepository.findOneOrFail({where:{email}})
         }catch(e){
-            return res.status(400).json({message:'Usuario o clave incorrectos!'})
+            return res.status(400).json({message:'Usuario o Clave incorrectos!'})
         }
         //Check password
         if(!user.checkPassword(clave)){
@@ -39,20 +39,20 @@ class AuthController{
         const {oldPassword,newPassword} = req.body;
         
         if(!(oldPassword && newPassword)){
-           return res.status(400).json({message:'Old Password & New Password are required'});
+           return res.status(400).json({message:'Clave antigua & Nueva clave son requeridos'});
         }
         
-        const userRepository  = getRepository(Usuario);
+        const userRepository:any  = getRepository(Usuario);
         let user:Usuario;
 
         try{
             user = await userRepository.findOneOrFail(userId);
         }catch(e){
-            res.status(400).json({message:'Somenthing goes wrong!'});
+            res.status(400).json({message:'Algo salió mal!'});
         }
 
         if(!user.checkPassword(oldPassword)){
-            return res.status(401).json({message:'Check your old password...'})
+            return res.status(401).json({message:'Revisa tu clave antigua...'})
         }
 
         user.clave = newPassword;
@@ -66,7 +66,7 @@ class AuthController{
         //Hash password
         user.hashPassword()
         userRepository.save(user);
-        res.json({message:'Password change'});
+        res.json({message:'Clave Actualizada!'});
     }
 
    

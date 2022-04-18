@@ -1,6 +1,6 @@
 import { validate } from 'class-validator';
 import { Request, Response } from 'express';
-import {getRepository} from "typeorm";
+import { getRepository, Repository } from 'typeorm';
 import { Plantilla } from '../entity/Plantilla';
 import { Parametro } from '../entity/Parametro';
 import { Piscina } from '../entity/Piscina';
@@ -9,39 +9,39 @@ import { Piscina } from '../entity/Piscina';
 export class TemplateController{
 
     static getAll = async(req:Request,res:Response)=>{
-        const paramRepository = getRepository(Plantilla);
-        let params;
+        const paramRepository:Repository<Plantilla> = getRepository(Plantilla);
+        let params:Plantilla[];
         try{
             params = await paramRepository.find({relations:["parametros"]});
         }catch(e){
-            res.status(404).json({message:'Something goes wrong!'})
+            res.status(404).json({message:'Algo salió mal!'})
         }
         (params.length>0)
         ?res.json(params)
-        :res.status(404).json({message:'Not result'})
+        :res.status(404).json({message:'No hay resultados'})
     }
 
     static getById = async(req:Request,res:Response)=>{
         const {id} = req.params;
-        const paramRepository = getRepository(Plantilla);
+        const paramRepository:Repository<Plantilla> = getRepository(Plantilla);
         try{
-            const param = await paramRepository.findOneOrFail(id,{relations:["parametros"]});
+            const param:Plantilla = await paramRepository.findOneOrFail(id,{relations:["parametros"]});
             res.json(param)
         }
         catch(e){
-            res.status(404).json({message:'Not Result'});
+            res.status(404).json({message:'No hay resultados'});
         }
     }
 
     static getTemplateByPool = async (req: Request, res: Response) => {
-        const poolRepository = getRepository(Piscina);
-        const paramRepository = getRepository(Parametro);
-        let piscina;
+        const poolRepository:Repository<Piscina> = getRepository(Piscina);
+        const paramRepository:Repository<Parametro> = getRepository(Parametro);
+        let piscina:Piscina;
         const {id} = req.params;
 
         try {
             
-            const parametrosMapped: Parametro[] = [];
+            const parametrosMapped: Plantilla[] = [];
 
             // obtenemos piscina con sus parámetros y usuarios
             piscina = await poolRepository.findOneOrFail(id,{relations: ["parametros", "usuarios"] });
@@ -54,7 +54,7 @@ export class TemplateController{
                     parametrosMapped.push(parametro.plantilla);
                 }
                 // construyo un nuevo objeto de piscina con los nuevos parámetros mapeado
-                const piscinaMapped = parametrosMapped;
+                const piscinaMapped:Plantilla[] = parametrosMapped;
                 // lo agrego al arreglo de piscina que daré de respuesta
               
             
@@ -62,9 +62,9 @@ export class TemplateController{
             if (piscinaMapped) {
                 return res.json(piscinaMapped)
             }
-            res.status(404).json({ message: 'Not result' })
+            res.status(404).json({ message: 'No hay resultados' })
         } catch (e) {
-            res.status(404).json({ message: 'Something goes wrong!' })
+            res.status(404).json({ message: 'Algo salió mal' })
         }
     }
 
@@ -72,18 +72,18 @@ export class TemplateController{
     static getByParam = async(req:Request,res:Response)=>{
         const {nombre} = req.params;
 
-        const paramRepository = getRepository(Plantilla);
-        let plantillas;
+        const paramRepository:Repository<Plantilla> = getRepository(Plantilla);
+        let plantillas:Plantilla[];
 
         try{
             plantillas = await paramRepository.find({relations:['parametros'],where:{nombre}})
         }catch(e){
-            res.status(404).json({ message: 'Something goes wrong!' })
+            res.status(404).json({ message: 'Algo salió mal' })
         }
 
         (plantillas.length > 0)
         ? res.json(plantillas)
-        : res.status(404).json({ message: 'Not result' })
+        : res.status(404).json({ message: 'No hay resultados' })
 
     }
 
@@ -110,7 +110,7 @@ export class TemplateController{
             return res.status(400).json(errors);
         }
 
-        const paramRepository = getRepository(Plantilla)
+        const paramRepository:Repository<Plantilla> = getRepository(Plantilla)
         try{
             await paramRepository.save(param);
         }catch(e){
@@ -123,11 +123,11 @@ export class TemplateController{
     }
 
     static editParam = async(req:Request,res:Response)=>{
-        let param;
+        let param:Plantilla;
         const {id} = req.params;
         const {codigo,nombre,valor_maximo,valor_minimo} = req.body;
 
-        const paramRepository = getRepository(Plantilla);
+        const paramRepository:Repository<Plantilla> = getRepository(Plantilla);
 
         try{
             param = await paramRepository.findOneOrFail(id);
@@ -136,7 +136,7 @@ export class TemplateController{
             param.valor_maximo = valor_maximo;
             param.valor_minimo = valor_minimo;
         }catch(e){
-            return res.status(404).json({message:'Parameter not found'})
+            return res.status(404).json({message:'Plantilla no funciona'})
         }
 
         const validationOpts = {validationError:{target:false,value:false}};
@@ -158,11 +158,11 @@ export class TemplateController{
 
     static deleteParam = async(req:Request,res:Response)=>{
         const {id} = req.params;
-        const paramRepository = getRepository(Plantilla);
+        const paramRepository:Repository<Plantilla> = getRepository(Plantilla);
 
         let param:Plantilla;
         try{ param = await paramRepository.findOneOrFail(id)}
-        catch(e){res.status(404).json({message:'Parameter not found'})}
+        catch(e){res.status(404).json({message:'Parametro no funciona'})}
 
 
         //Remove user

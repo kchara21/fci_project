@@ -18,11 +18,11 @@ TemplateController.getAll = async (req, res) => {
         params = await paramRepository.find({ relations: ["parametros"] });
     }
     catch (e) {
-        res.status(404).json({ message: 'Something goes wrong!' });
+        res.status(404).json({ message: 'Algo salió mal!' });
     }
     (params.length > 0)
         ? res.json(params)
-        : res.status(404).json({ message: 'Not result' });
+        : res.status(404).json({ message: 'No hay resultados' });
 };
 TemplateController.getById = async (req, res) => {
     const { id } = req.params;
@@ -32,7 +32,7 @@ TemplateController.getById = async (req, res) => {
         res.json(param);
     }
     catch (e) {
-        res.status(404).json({ message: 'Not Result' });
+        res.status(404).json({ message: 'No hay resultados' });
     }
 };
 TemplateController.getTemplateByPool = async (req, res) => {
@@ -51,10 +51,10 @@ TemplateController.getTemplateByPool = async (req, res) => {
         if (piscinaMapped) {
             return res.json(piscinaMapped);
         }
-        res.status(404).json({ message: 'Not result' });
+        res.status(404).json({ message: 'No hay resultados' });
     }
     catch (e) {
-        res.status(404).json({ message: 'Something goes wrong!' });
+        res.status(404).json({ message: 'Algo salió mal' });
     }
 };
 TemplateController.getByParam = async (req, res) => {
@@ -65,11 +65,11 @@ TemplateController.getByParam = async (req, res) => {
         plantillas = await paramRepository.find({ relations: ['parametros'], where: { nombre } });
     }
     catch (e) {
-        res.status(404).json({ message: 'Something goes wrong!' });
+        res.status(404).json({ message: 'Algo salió mal' });
     }
     (plantillas.length > 0)
         ? res.json(plantillas)
-        : res.status(404).json({ message: 'Not result' });
+        : res.status(404).json({ message: 'No hay resultados' });
 };
 TemplateController.newParam = async (req, res) => {
     const { codigo, nombre, valor_maximo, valor_minimo } = req.body;
@@ -105,7 +105,7 @@ TemplateController.editParam = async (req, res) => {
         param.valor_minimo = valor_minimo;
     }
     catch (e) {
-        return res.status(404).json({ message: 'Parameter not found' });
+        return res.status(404).json({ message: 'Plantilla no funciona' });
     }
     const validationOpts = { validationError: { target: false, value: false } };
     const errors = await (0, class_validator_1.validate)(param, validationOpts);
@@ -128,7 +128,7 @@ TemplateController.deleteParam = async (req, res) => {
         param = await paramRepository.findOneOrFail(id);
     }
     catch (e) {
-        res.status(404).json({ message: 'Parameter not found' });
+        res.status(404).json({ message: 'Parametro no funciona' });
     }
     paramRepository.delete(id);
     res.status(201).json({ message: 'Parametro eliminado' });

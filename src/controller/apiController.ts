@@ -16,11 +16,11 @@ export class ApiController{
             const  response = await fetch(API);
             body = await response.json();
         }catch(e){
-            res.status(404).json({message:'Something goes wrong!'})
+            res.status(404).json({message:'Algo salió mal!'})
         }
         (body)
         ?res.json(body)
-        :res.status(404).json({message:'Not result'})
+        :res.status(404).json({message:'No hay Resultado'})
     }
 
 

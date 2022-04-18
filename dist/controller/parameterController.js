@@ -31,14 +31,14 @@ ParamController.censusParameter = async (req, res) => {
         valoresApi = body;
     }
     catch (e) {
-        res.status(404).json({ message: 'Something goes wrong!' });
+        res.status(404).json({ message: 'Algo salió mal!' });
     }
     try {
         const usuario = await userRepository.findOneOrFail(responsableId);
         responsable = usuario.nombre;
     }
     catch (e) {
-        res.status(404).json({ message: 'Not Result' });
+        res.status(404).json({ message: 'No hay resultado' });
     }
     try {
         const parametros = await paramRepository
@@ -59,10 +59,10 @@ ParamController.censusParameter = async (req, res) => {
                     value.valor = valorApi[i];
                     value.responsable = responsable;
                     if (valorApi[i] >= parametro.plantilla.valor_minimo && valorApi[i] <= parametro.plantilla.valor_maximo) {
-                        value.estado = "aceptable";
+                        value.estado = "Aceptable";
                     }
                     else {
-                        value.estado = "revisar";
+                        value.estado = "Revisar";
                     }
                     value.parametro = parametro;
                     await valueRepository.save(value);
@@ -72,7 +72,7 @@ ParamController.censusParameter = async (req, res) => {
         res.json({ message: "Valores guardados!" });
     }
     catch (e) {
-        res.status(404).json({ message: 'Not Result' });
+        res.status(404).json({ message: 'No hay resultados' });
     }
 };
 ParamController.getAll = async (req, res) => {
@@ -82,11 +82,11 @@ ParamController.getAll = async (req, res) => {
         parameters = await poolRepository.find({ relations: ["plantilla", "piscina", "valores"] });
     }
     catch (e) {
-        res.status(404).json({ message: 'Something goes wrong!' });
+        res.status(404).json({ message: 'Algo salió mal!' });
     }
     (parameters.length > 0)
         ? res.json(parameters)
-        : res.status(404).json({ message: 'Not result' });
+        : res.status(404).json({ message: 'No hay resultados' });
 };
 ParamController.getByPool = async (req, res) => {
     const { piscina } = req.params;
@@ -96,15 +96,13 @@ ParamController.getByPool = async (req, res) => {
     try {
         parameters = await poolRepository.find({ relations: ["plantilla", "piscina", "valores"] });
         for (let param of parameters) {
-            console.log(param.piscina.codigo);
-            console.log(piscina);
             if (param.piscina.codigo === piscina) {
                 paramsByPool.push(param);
             }
         }
     }
     catch (e) {
-        res.status(404).json({ message: 'Something goes wrong!' });
+        res.status(404).json({ message: 'Algo salio mal!' });
     }
     (paramsByPool.length > 0)
         ? res.json(paramsByPool)
@@ -131,7 +129,7 @@ ParamController.newParam = async (req, res) => {
         await poolRepository.save(param);
     }
     catch (e) {
-        return res.status(404).json({ message: 'Parameter already exist' });
+        return res.status(404).json({ message: 'Parametro existente' });
     }
     res.json('Parametro Creado!');
 };
@@ -140,7 +138,6 @@ ParamController.editParam = async (req, res) => {
     const { id } = req.params;
     const { codigo, nombre, plantilla, piscina } = req.body;
     const paramRepository = (0, typeorm_1.getRepository)(Parametro_1.Parametro);
-    const poolRepository = (0, typeorm_1.getRepository)(Parametro_1.Parametro);
     try {
         param = await paramRepository.findOneOrFail(id);
         param.codigo = codigo;
@@ -149,7 +146,7 @@ ParamController.editParam = async (req, res) => {
         param.piscina = piscina;
     }
     catch (e) {
-        return res.status(404).json({ message: 'Parameter not found' });
+        return res.status(404).json({ message: 'Parametro no funciona' });
     }
     const validationOpts = { validationError: { target: false, value: false } };
     const errors = await (0, class_validator_1.validate)(param, validationOpts);
@@ -172,7 +169,7 @@ ParamController.deleteParam = async (req, res) => {
         param = await paramRepository.findOneOrFail(id);
     }
     catch (e) {
-        res.status(404).json({ message: 'Parameter not found' });
+        res.status(404).json({ message: 'Parametro no encontrado' });
     }
     paramRepository.delete(id);
     res.status(201).json({ message: '¡Parametro eliminado!' });

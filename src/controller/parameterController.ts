@@ -1,10 +1,9 @@
 import { validate } from 'class-validator';
 import { Request, Response } from 'express';
-import { Between, getRepository, CreateDateColumn, getManager } from 'typeorm';
+import { Between, getRepository, CreateDateColumn, getManager, Repository } from 'typeorm';
 import { Parametro } from '../entity/Parametro';
 import { Valor } from '../entity/Valor';
 import fetch from 'node-fetch';
-
 import moment from 'moment';
 import { Usuario } from '../entity/User';
 
@@ -15,14 +14,14 @@ export class ParamController {
 
     static censusParameter = async (req: Request, res: Response) => {
 
-        const paramRepository = getRepository(Parametro);
-        const valueRepository = getRepository(Valor);
-        const userRepository = getRepository(Usuario);
+        const paramRepository:Repository<Parametro> = getRepository(Parametro);
+        const valueRepository:Repository<Valor> = getRepository(Valor);
+        const userRepository:Repository<Usuario> = getRepository(Usuario);
 
-        let valoresApi: [] = [];
-        let API = 'https://api-esp8266-bfcd7-default-rtdb.firebaseio.com/Proyecto1.json'; //TODO: poner la API como variable de entorno
-        let body;
-        let responsable;
+        let valoresApi:number | string[] = [];
+        let API:string = 'https://api-esp8266-bfcd7-default-rtdb.firebaseio.com/Proyecto1.json'; //TODO: poner la API como variable de entorno
+        let body:any;
+        let responsable:string;
 
         const { id, responsableId } = req.params;
 
@@ -32,20 +31,20 @@ export class ParamController {
             body = await response.json();
             valoresApi = body;
         } catch (e) {
-            res.status(404).json({ message: 'Something goes wrong!' })
+            res.status(404).json({ message: 'Algo salió mal!' })
         }
 
 
 
         try{
-            const usuario = await userRepository.findOneOrFail(responsableId);
+            const usuario:Usuario = await userRepository.findOneOrFail(responsableId);
             responsable = usuario.nombre;
         }catch(e){
-            res.status(404).json({message:'Not Result'});
+            res.status(404).json({message:'No hay resultado'});
         }
 
         try {
-            const parametros = await paramRepository
+            const parametros:Parametro[] = await paramRepository
                 .createQueryBuilder("param")
                 .where("param.piscina.id = :id", { id })
                 .getMany();
@@ -58,20 +57,19 @@ export class ParamController {
                 parametro = await paramRepository.findOne(parametro.id, { relations: ["valores", "plantilla"] })
 
 
-                let nombreApi = Object.keys(valoresApi)
-                let valorApi = Object.values(valoresApi);
-
+                let nombreApi:string[] = Object.keys(valoresApi)
+                let valorApi:number[] = Object.values(valoresApi);
 
                 for (let i = 0; i <= nombreApi.length; i++) {
                     if (parametro.nombre === nombreApi[i]) {
-                        const value = new Valor();
+                        const value:Valor = new Valor();
                         value.createdAt = moment().subtract(5, 'hours').toDate();
                         value.valor = valorApi[i];
                         value.responsable = responsable;
                         if (valorApi[i] >= parametro.plantilla.valor_minimo && valorApi[i] <= parametro.plantilla.valor_maximo) {
-                            value.estado = "aceptable";
+                            value.estado = "Aceptable";
                         } else {
-                            value.estado = "revisar";
+                            value.estado = "Revisar";
                         }
 
                         value.parametro = parametro;
@@ -81,48 +79,48 @@ export class ParamController {
                     }
                 }
 
+
+
             }
 
             res.json({ message: "Valores guardados!" })
 
         } catch (e) {
-            res.status(404).json({ message: 'Not Result' });
+            res.status(404).json({ message: 'No hay resultados' });
         }
 
     }
 
 
     static getAll = async (req: Request, res: Response) => {
-        const poolRepository = getRepository(Parametro);
-        let parameters;
+        const poolRepository:Repository<Parametro> = getRepository(Parametro);
+        let parameters:Parametro[];
         try {
             parameters = await poolRepository.find({ relations: ["plantilla", "piscina", "valores"] });
         } catch (e) {
-            res.status(404).json({ message: 'Something goes wrong!' })
+            res.status(404).json({ message: 'Algo salió mal!' })
         }
         (parameters.length > 0)
             ? res.json(parameters)
-            : res.status(404).json({ message: 'Not result' })
+            : res.status(404).json({ message: 'No hay resultados' })
     }
 
 
     static getByPool = async (req: Request, res: Response) => {
         const { piscina } = req.params;
-        let parameters;
+        let parameters:Parametro[];
         let paramsByPool = [];
-        const poolRepository = getRepository(Parametro);
+        const poolRepository:Repository<Parametro> = getRepository(Parametro);
         try {
             parameters = await poolRepository.find({ relations: ["plantilla", "piscina", "valores"] });
             for (let param of parameters) {
-                console.log(param.piscina.codigo);
-                console.log(piscina);
                 if (param.piscina.codigo === piscina) {
                     paramsByPool.push(param);
                 }
             }
 
         } catch (e) {
-            res.status(404).json({ message: 'Something goes wrong!' })
+            res.status(404).json({ message: 'Algo salio mal!' })
         }
 
       
@@ -136,7 +134,7 @@ export class ParamController {
 
     static newParam = async (req: Request, res: Response) => {
         const { codigo, nombre, plantilla, piscina } = req.body;
-        const param = new Parametro;
+        const param:Parametro = new Parametro;
 
         param.codigo = codigo;
         param.nombre = nombre;
@@ -144,28 +142,25 @@ export class ParamController {
         param.piscina = piscina;
 
 
-
-
         //Validate
-        const validationOpts = { validationError: { target: false, value: false } };
-        const errors = await validate(param, validationOpts);
+        const validationOpts:any = { validationError: { target: false, value: false } };
+        const errors:any = await validate(param, validationOpts);
         if (errors.length > 0) {
             return res.status(400).json(errors);
         }
 
-        const poolRepository = getRepository(Parametro);
+        const poolRepository:Repository<Parametro> = getRepository(Parametro);
         try {
 
             //Validate if exist a param with the same pool
-            const paramExist = await poolRepository.find({ where: { piscina: piscina, nombre: nombre } })
+            const paramExist:Parametro[] = await poolRepository.find({ where: { piscina: piscina, nombre: nombre } })
             if (paramExist.length > 0) {
-
                 return res.json({ message: `Parametro existente en la piscina seleccionada` })
             }
 
             await poolRepository.save(param);
         } catch (e) {
-            return res.status(404).json({ message: 'Parameter already exist' })
+            return res.status(404).json({ message: 'Parametro existente' })
         }
 
         res.json('Parametro Creado!')
@@ -176,14 +171,11 @@ export class ParamController {
 
 
     static editParam = async (req: Request, res: Response) => {
-        let param;
+        let param:Parametro;
         const { id } = req.params;
         const { codigo, nombre, plantilla, piscina } = req.body;
 
-        const paramRepository = getRepository(Parametro);
-
-
-        const poolRepository = getRepository(Parametro);
+        const paramRepository:Repository<Parametro> = getRepository(Parametro);
 
         try {
             param = await paramRepository.findOneOrFail(id);
@@ -192,10 +184,8 @@ export class ParamController {
             param.plantilla = plantilla;
             param.piscina = piscina;
 
-
-
         } catch (e) {
-            return res.status(404).json({ message: 'Parameter not found' })
+            return res.status(404).json({ message: 'Parametro no funciona' })
         }
 
         const validationOpts = { validationError: { target: false, value: false } };
@@ -219,11 +209,11 @@ export class ParamController {
 
     static deleteParam = async (req: Request, res: Response) => {
         const { id } = req.params;
-        const paramRepository = getRepository(Parametro);
+        const paramRepository:Repository<Parametro> = getRepository(Parametro);
 
         let param: Parametro;
         try { param = await paramRepository.findOneOrFail(id) }
-        catch (e) { res.status(404).json({ message: 'Parameter not found' }) }
+        catch (e) { res.status(404).json({ message: 'Parametro no encontrado' }) }
 
 
         //Remove user

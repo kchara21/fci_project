@@ -38,7 +38,7 @@ _a = AuthController;
 AuthController.login = async (req, res) => {
     const { email, clave } = req.body;
     if (!(email && clave)) {
-        res.status(400).json({ message: 'Usuario y clave son requeridos!' });
+        res.status(400).json({ message: 'Usuario y Clave requeridos!' });
     }
     const userRepository = (0, typeorm_1.getRepository)(User_1.Usuario);
     let user;
@@ -46,7 +46,7 @@ AuthController.login = async (req, res) => {
         user = await userRepository.findOneOrFail({ where: { email } });
     }
     catch (e) {
-        return res.status(400).json({ message: 'Usuario o clave incorrectos!' });
+        return res.status(400).json({ message: 'Usuario o Clave incorrectos!' });
     }
     if (!user.checkPassword(clave)) {
         return res.status(400).json({ message: 'Usuario o clave incorrecta' });
@@ -58,7 +58,7 @@ AuthController.changePassword = async (req, res) => {
     const { userId } = res.locals.jwtPayload;
     const { oldPassword, newPassword } = req.body;
     if (!(oldPassword && newPassword)) {
-        return res.status(400).json({ message: 'Old Password & New Password are required' });
+        return res.status(400).json({ message: 'Clave antigua & Nueva clave son requeridos' });
     }
     const userRepository = (0, typeorm_1.getRepository)(User_1.Usuario);
     let user;
@@ -66,10 +66,10 @@ AuthController.changePassword = async (req, res) => {
         user = await userRepository.findOneOrFail(userId);
     }
     catch (e) {
-        res.status(400).json({ message: 'Somenthing goes wrong!' });
+        res.status(400).json({ message: 'Algo salió mal!' });
     }
     if (!user.checkPassword(oldPassword)) {
-        return res.status(401).json({ message: 'Check your old password...' });
+        return res.status(401).json({ message: 'Revisa tu clave antigua...' });
     }
     user.clave = newPassword;
     const validationOps = { validationError: { target: false, value: false } };
@@ -79,7 +79,7 @@ AuthController.changePassword = async (req, res) => {
     }
     user.hashPassword();
     userRepository.save(user);
-    res.json({ message: 'Password change' });
+    res.json({ message: 'Clave Actualizada!' });
 };
 exports.default = AuthController;
 //# sourceMappingURL=authController.js.map
