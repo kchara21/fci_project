@@ -17,7 +17,21 @@
 - Front: Angular. 
 - Backend: NodeJS, Express, TypeORM.
 - DB: MySql 
-- Plataforma: Desplegado actualmente en Heroku...
+- Plataforma: Desplegado actualmente en Heroku... 
+
+## Despliegue:
+- Link: https://projectfci.herokuapp.com/
+#### Usuario Supervisor:
+- username: kalebdavidchara@hotmail.com
+- password: Davidch2022
+
+#### Usuario Operador:
+- username: operador@hotmail.com
+- password: Operador2022*
+
+
+
+
 
 
 # FCI Project
