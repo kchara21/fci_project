@@ -4,16 +4,17 @@
 
 ### Resumen:
 
-- Gestión en función al tiempo de estos valores que se reciben en una API. 
-- Filtros de los valores guardados/sensados en función al rango de fecha y tipo de parámetro, o piscina. 
-- Mostración gráfica, y exportación de reportes en archivos excel para la manipulación. 
-- Sistema de autenticación (LOGIN).
-- Asignación de roles de usuario. 
+- Proveer un servicio web API RESTful para obtener, almacenar y compartir los datos relacionados a la calidad del agua utilizada en el cultivo de camarón. 
+- Implementar el estándar abierto JWT (JSON Web Token) para la autenticación y autorización (seguridad) del servicio web. 
+- Mostrar los valores de los parámetros de la calidad del agua de las piscinas de cultivo en una interfaz de usuario web. 
+- Generar reportes y compartir información en base a los parámetros almacenados para su fácil lectura y análisis. 
+- Recibir los datos del componente electrónico que estará en la piscina de cultivo a través de la API que interpretará el prototipo de software. 
+- Utilizar el servicio orientado a modelo PaaS. 
 
 
 ## Herramientas:
 
-- Front: Angular, Angular-Material
+- Front: Angular. 
 - Backend: NodeJS, Express, TypeORM.
 - DB: MySql 
-- Plataforma: Desplegado actualmente en Heroku
+- Plataforma: Desplegado actualmente en Heroku...
